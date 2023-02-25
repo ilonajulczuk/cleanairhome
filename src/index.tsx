@@ -22,7 +22,7 @@ if (window.location.href === chrome.runtime.getURL('index.html')) {
     );
 
 }
-else {
+else if(window.location.href.match("daft\.ie")) {
     const extension = document.createElement('div');
     extension.id = 'my-chrome-extension';
     document.body.appendChild(extension);
