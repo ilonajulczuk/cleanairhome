@@ -1,0 +1,51 @@
+{
+    "manifest_version": 3,
+    "name": "Clean Air Home",
+    "description": "Clean Air Home.",
+    "version": "0.0.1",
+    "icons": {
+        "128": "icon.png"
+    },
+    "action": {
+        "default_icon": {
+            "32": "icon.png"
+        },
+
+        "default_popup": "/static/assets/popup.html",
+        "default_title": "Open Popup"
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "/static/js/main.js"
+            ],
+            "css": [
+                "/static/css/main.css"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "/static/assets/*",
+                "*",
+                "index.html"
+            ],
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ]
+        }
+    ]
+}
