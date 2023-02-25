@@ -601,14 +601,6 @@ video {
   margin-bottom: 1rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
 .mt-8 {
   margin-top: 2rem;
 }
@@ -629,9 +621,8 @@ video {
   justify-content: center;
 }
 
-.bg-turtle-green {
-  --tw-bg-opacity: 1;
-  background-color: rgb(110 130 58 / var(--tw-bg-opacity));
+.gap-4 {
+  gap: 1rem;
 }
 
 .text-center {
@@ -646,4 +637,9 @@ video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }

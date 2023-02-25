@@ -13,10 +13,78 @@ function parseCoors(rawCoors: string) {
     return [Number(lat), Number(lon)];
 }
 
+const levelToColor = {
+    1: "#99d35c5c",
+    2: "#15b45f5c",
+    3: "#318e5b5c",
+    4: "#fffa105c",
+    5: "#ffc30f5c",
+    6: "#e4791e5c",
+    7: "#ff2d0e5c",
+    8: "#c7321e5c",
+    9: "#791a145c",
+    10: "#7031a05c",
+
+}
+
+function PM25ValueToLevel(value: number) {
+
+    if (value < 11) {
+        return 1;
+    } else if (value < 23) {
+        return 2;
+    } else if (value < 35) {
+        return 3;
+    } else if (value < 41) {
+        return 4;
+    } else if (value < 47) {
+        return 5;
+    } else if (value < 53) {
+        return 6;
+    } else if (value < 58) {
+        return 8;
+    } else if (value < 64) {
+        return 8;
+    } else if (value < 70) {
+        return 9;
+    } else {
+        return 10;
+    }
+}
+
+function NO2ValueToLevel(value: number) {
+    if (value < 67) {
+        return 1;
+    } else if (value < 134) {
+        return 2;
+    } else if (value < 200) {
+        return 3;
+    } else if (value < 267) {
+        return 4;
+    } else if (value < 334) {
+        return 5;
+    } else if (value < 400) {
+        return 6;
+    } else if (value < 467) {
+        return 8;
+    } else if (value < 534) {
+        return 8;
+    } else if (value < 600) {
+        return 9;
+    } else {
+        return 10;
+    }
+}
+
+function PM25ValToColor(value: number) {
+    return levelToColor[PM25ValueToLevel(value)];
+}
+
+function N02ValToColor(value: number) {
+    return levelToColor[NO2ValueToLevel(value)];
+}
 
 function AirHomeMap({ coords }: { coords: Point | null }) {
-
-
 
     const geoJsonSample = {
         type: "FeatureCollection",
@@ -24,7 +92,7 @@ function AirHomeMap({ coords }: { coords: Point | null }) {
             {
                 type: "Feature",
                 geometry: { type: "Point", coordinates: coords ? [coords[1], coords[0]] : coords },
-                properties: { prop0: "value0" },
+                properties: { pm25: 68 },
             },
         ],
     };
@@ -74,7 +142,7 @@ function AirHomeMap({ coords }: { coords: Point | null }) {
                                 return { strokeWidth: "1", stroke: "black" };
                             }
                             return {
-                                fill: "#ffa5005c",
+                                fill: feature.properties.pm25 ? PM25ValToColor(feature.properties.pm25) : "#ffa5005c",
                                 strokeWidth: "1",
                                 stroke: "red",
                                 r: "200",
@@ -143,13 +211,13 @@ const ContentScriptApp = () => {
     return (
         <div className="air-extension">
             <section className="container">
-                <section className="content air-data">
+                <section className="content air-data flex flex-col gap-4">
                     <img className={"mb-4"} style={{ width: "50px" }}
                         // eslint-disable-next-line no-undef
                         src={chrome.runtime.getURL('static/assets/home_emoji.png')}
                         alt="Home emoji"
                     />
-                    <div>
+                    <div className='flex flex-col gap-4'>
                         <p>
 
                             This property is in the area with dangerous air quality.
@@ -161,7 +229,7 @@ const ContentScriptApp = () => {
                             Typical values of PM2.5 are 25-20 units.
                         </p>
                         <p>
-                            To learn more visit website link.
+                            To learn more visit <a className="underline" href='https://airquality.ie/information/air-quality-index-for-health'>airquality.ie</a>
                         </p>
                     </div>
 

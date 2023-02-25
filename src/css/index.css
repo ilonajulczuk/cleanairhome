@@ -24,14 +24,20 @@ body .air-extension .container {
     background: white;
     border-radius: 20px;
     width: 500px;
-    height: 200px;
+    height: unset;
     position: fixed;
     margin: 0;
     top: 200px;
     right: 20px;
 
-    padding: 20px;
+    padding: 40px;
     display: flex;
+}
+
+body .air-extension .container p {
+
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .turtle-button {
